@@ -2,6 +2,7 @@ package com.daw.esdla.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name = "personajes")
@@ -23,6 +24,9 @@ public class Personaje {
 
     @Column(name = "nivel_corrupcion")
     private int nivelCorrupcion;
+
+    @Column(name ="fecha_baja")
+    private Date fechaBaja;
 
     public Personaje() {
     }
@@ -76,5 +80,13 @@ public class Personaje {
 
     public void setNivelCorrupcion(int nivelCorrupcion) {
         this.nivelCorrupcion = nivelCorrupcion;
+    }
+
+    public Date getFechaBaja() {
+        return fechaBaja;
+    }
+
+    public void setFechaBaja(Date fechaBaja) {
+        this.fechaBaja = fechaBaja;
     }
 }

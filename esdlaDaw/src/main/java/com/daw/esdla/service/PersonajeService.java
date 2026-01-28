@@ -1,12 +1,15 @@
 package com.daw.esdla.service;
 
 import com.daw.esdla.dto.PersonajeDTO;
+import com.daw.esdla.mapper.PersonajeMapper;
 import com.daw.esdla.model.Personaje;
 import com.daw.esdla.model.Raza;
 import com.daw.esdla.repository.PersonajeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.sql.DataSource;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -14,6 +17,8 @@ public class PersonajeService {
 
     @Autowired
     private PersonajeRepository personajeRepository;
+    @Autowired
+    private DataSource dataSource;
 
     public List<PersonajeDTO> findAll() {
         return personajeRepository.findAll()
@@ -56,5 +61,18 @@ public class PersonajeService {
 
         dto.setId(personaje.getId());
         return dto;
+    }
+
+    public PersonajeDTO bajaLogicaPersonaje(Long id) {
+        Personaje personaje = personajeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Personaje no encontrado"));
+        personaje.setFechaBaja(new Date());
+
+        return PersonajeMapper.map(personaje);
+
+    }
+
+    public void bajaFisica(Long id) {
+        personajeRepository.deleteById(id);
     }
 }

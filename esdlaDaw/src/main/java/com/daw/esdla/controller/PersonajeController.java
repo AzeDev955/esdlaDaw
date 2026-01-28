@@ -3,6 +3,7 @@ package com.daw.esdla.controller;
 import com.daw.esdla.dto.PersonajeDTO;
 import com.daw.esdla.service.PersonajeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,4 +39,16 @@ public class PersonajeController {
         return personajeService.actualizarPersonaje(id, dto);
     }
 
+    @PutMapping("/api/bajaLogica/{id}")
+    public PersonajeDTO bajaLogicaPersonaje(
+            @PathVariable Long id) {
+        return personajeService.bajaLogicaPersonaje(id);
+    }
+
+    @DeleteMapping("/api/bajaFisica/{id}")
+    public ResponseEntity<Void> bajaFisicaPersonaje(
+            @PathVariable Long id) {
+         personajeService.bajaFisica(id);
+         return ResponseEntity.ok().build();
+    }
 }
